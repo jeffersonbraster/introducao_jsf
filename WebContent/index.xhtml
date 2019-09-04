@@ -4,21 +4,28 @@
 	
 <h:head>
 	<title>Olá jsp</title>
+	
+	<script>
+		function alterarValor() {
+			var campo = document.getElementById('formPessoa:nome');
+			campo.value = 'eu cliquei no campo';
+		}
+	</script>
 </h:head>
 <h:body>
 	<h:form id="formPessoa">
 		<h:inputText id="campoNome" value="#{pessoaBean.nome}"/>
 		<br/>
 		
-		<h:commandButton binding="#{pessoaBean.htmlCommandButton}"  value="nome completo" action="#{pessoaBean.addNome}"/>
+		<h:inputText id="nome" onclick="this.value='troquei o valor'" onchange="this.value = this.value.toUpperCase();"/>
+		<h:commandButton value="clik" onclick="alterarValor();"/>
 		<br/>
 		
-		<h:dataTable value="#{pessoaBean.nomes}" var="nome">
-			<h:column>
-				<h:outputText value="#{nome}"/>
-			</h:column>
-		</h:dataTable>
 		<br/>
+		<br/>
+		
+		
+		
 		
 	</h:form>
 </h:body>
