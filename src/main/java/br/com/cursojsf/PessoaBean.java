@@ -3,75 +3,73 @@ package br.com.cursojsf;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlCommandButton;
 
+import dao.DaoGeneric;
+import entidades.Pessoa;
+
 @ManagedBean(name = "pessoaBean")
-@SessionScoped
+@ViewScoped
 public class PessoaBean {
 
-	private String nome;	
-	private String senha;
-	private String texto;
-	private List<String> nomes = new ArrayList<String>();
-	private HtmlCommandButton htmlCommandButton;
+	private Pessoa pessoa = new Pessoa();
+	private DaoGeneric<Pessoa> daoGeneric = new DaoGeneric<Pessoa>();
+	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 	
-	
-	
-	
-	
-	
-	public String getSenha() {
-		return senha;
+	public String salvar() {
+		pessoa = daoGeneric.merge(pessoa);
+		carregarPessoas();
+		return "";
+		
 	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public String getTexto() {
-		return texto;
-	}
-
-	public void setTexto(String texto) {
-		this.texto = texto;
-	}
-
-	public HtmlCommandButton getHtmlCommandButton() {
-		return htmlCommandButton;
-	}
-
-	public void setHtmlCommandButton(HtmlCommandButton htmlCommandButton) {
-		this.htmlCommandButton = htmlCommandButton;
-	}
-
-	public String addNome() {
-		nomes.add(nome);
-		if(nomes.size() > 2) {
-			htmlCommandButton.setDisabled(true);
-			return "paginanavegada?faces-redirect=true";
-		}
+	 
+	public String novo() {
+		pessoa = new Pessoa();
 		return "";
 	}
 	
-	public List<String> getNomes() {
-		return nomes;
+	public String remove() {
+		daoGeneric.deletePorId(pessoa);
+		pessoa = new Pessoa();
+		carregarPessoas();
+		return "";
+	}
+	
+	@PostConstruct
+	public void carregarPessoas() {
+		pessoas = daoGeneric.getListEntity(Pessoa.class);
+	}
+	
+	public List<Pessoa> getPessoas() {
+		return pessoas;
 	}
 
-	public void setNomes(List<String> nomes) {
-		this.nomes = nomes;
-	}	
-
-	public String getNome() {
-		return nome;
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	public DaoGeneric<Pessoa> getDaoGeneric() {
+		return daoGeneric;
+	}
+
+	public void setDaoGeneric(DaoGeneric<Pessoa> daoGeneric) {
+		this.daoGeneric = daoGeneric;
+	}
+	
+	
 
 	
 
