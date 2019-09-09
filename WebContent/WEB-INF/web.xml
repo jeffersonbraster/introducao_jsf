@@ -3,7 +3,7 @@
   <display-name>primeiroprojetojsf</display-name>
   <welcome-file-list>
     
-    <welcome-file>primeirapagina.xhtml</welcome-file>
+    <welcome-file>index.jsf</welcome-file>
     
   </welcome-file-list>
   <servlet>
