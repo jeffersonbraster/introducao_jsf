@@ -8,7 +8,7 @@
 <h:body>
 	
 	<h:form>
-		<h:commandButton value="Administração" action="primeirapagina" style="margin-left: 1cm;"/>
+		<h:commandButton value="Administração" action="primeirapagina" style="margin-left: 1cm;" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}"/>
 		<h:commandButton value="lancamentos" action="lancamento" style="margin-left: 1cm;"/>
 		<h:commandButton value="Trocar usuário" action="index" style="margin-left: 1cm;"/>
 	</h:form>
