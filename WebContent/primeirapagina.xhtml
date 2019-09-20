@@ -53,6 +53,13 @@
 			<f:selectItem itemValue="A" itemLabel="Analista"/>
 		</h:selectOneRadio>
 		
+		<h:outputLabel value="Linguagens: " />
+		<h:selectManyCheckbox value="#{pessoaBean.pessoa.linguagens}">
+			<f:selectItem itemValue="1" itemLabel="Java"/>
+			<f:selectItem itemValue="2" itemLabel="PHP"/>
+			<f:selectItem itemValue="3" itemLabel="WordPress"/>
+		</h:selectManyCheckbox>
+		
 		<h:outputLabel value="Ativo"/>
 		<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}"/>
 		
