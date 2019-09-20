@@ -20,11 +20,14 @@ public class Pessoa implements Serializable {
 	private String nome;
 	private String sobrenome;
 	private Integer idade;
+	
 
 	@Temporal(TemporalType.DATE)
 	private Date datanascimento;
 
 	private String sexo;
+	
+	private String nivelProgramador;
 	
 	private String[] frameworks;
 	
@@ -36,6 +39,31 @@ public class Pessoa implements Serializable {
 	private String perfilUser;
 	
 	
+	
+	
+	
+	
+	
+
+
+
+
+
+	public String getNivelProgramador() {
+		return nivelProgramador;
+	}
+
+
+
+
+
+	public void setNivelProgramador(String nivelProgramador) {
+		this.nivelProgramador = nivelProgramador;
+	}
+
+
+
+
 
 	public String getPerfilUser() {
 		return perfilUser;

@@ -45,6 +45,14 @@
 			<f:selectItem itemValue="Wordpress"/>
 		</h:selectManyMenu>
 		
+		<h:outputLabel value="Nivel programador" />
+		<h:selectOneRadio value="#{pessoaBean.pessoa.nivelProgramador}" layout="pageDirection">
+			<f:selectItem itemValue="J" itemLabel="Junior"/>
+			<f:selectItem itemValue="P" itemLabel="Pleno"/>
+			<f:selectItem itemValue="S" itemLabel="Senior"/>
+			<f:selectItem itemValue="A" itemLabel="Analista"/>
+		</h:selectOneRadio>
+		
 		<h:outputLabel value="Ativo"/>
 		<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}"/>
 		
