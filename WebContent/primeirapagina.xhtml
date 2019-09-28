@@ -86,16 +86,20 @@
 		
 		<h:outputLabel/>
 		<h:panelGroup>
-		<h:commandButton value="Novo" action="#{pessoaBean.novo}" image="resources/img/new_add.png" title="New"/>
+		<h:commandButton value="Novo" id="botaoNovo" action="#{pessoaBean.novo}" image="resources/img/new_add.png" title="New">
+			<f:ajax execute="botaoNovo" render="@form" />
+		</h:commandButton>
 		<h:commandButton style="margin-left: 1cm;" value="Salvar" action="#{pessoaBean.salvar}" image="resources/img/save.png" title="Save"/>
 		<h:commandButton style="margin-left: 1cm;" value="Remove" action="#{pessoaBean.remove}" image="resources/img/delete.png" title="Delete"/>
-		<h:commandButton value="Limpar" type="reset" image="resources/img/clean.png" title="Clean" style="width: 32px; margin-left: 1cm;"/>
+		<h:commandButton value="Limpar" id="botaoLimpar" action="#{pessoaBean.limpar}" image="resources/img/clean.png" title="Clean" style="width: 32px; margin-left: 1cm;">
+			<f:ajax execute="botaoLimpar" render="@form" />
+		</h:commandButton>
 		</h:panelGroup>	
 		</h:panelGrid>
 		
-			
+	</h:form>
 		
-		
+		<h:form id="formTable">
 		<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="2" cellpadding="5">
 		<f:facet name="header">
 			Lista de usuarios cadastrados
@@ -132,8 +136,8 @@
 				</h:commandLink>
 			</h:column>
 		</h:dataTable>
-		
-	</h:form>
+		</h:form>
+	
 </h:body>
 	
 </html>
