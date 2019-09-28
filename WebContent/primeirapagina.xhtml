@@ -66,6 +66,23 @@
 			<f:selectItem itemValue="3" itemLabel="WordPress"/>
 		</h:selectManyCheckbox>
 		
+		<h:outputLabel value="Cep: " />
+		<h:inputText value="#{pessoaBean.pessoa.cep}">
+			<f:ajax event="blur" execute="@this" listener="#{pessoaBean.pesquisaCep}" render="logradouro bairro localidade uf" />
+		</h:inputText>
+		
+		<h:outputLabel value="Endereço: " />
+		<h:inputText value="#{pessoaBean.pessoa.logradouro}" id="logradouro" />
+		
+		<h:outputLabel value="Bairro: " />
+		<h:inputText value="#{pessoaBean.pessoa.bairro}" id="bairro" />
+		
+		<h:outputLabel value="Cidade: " />
+		<h:inputText value="#{pessoaBean.pessoa.localidade}" id="localidade" />
+		
+				<h:outputLabel value="Uf: " />
+		<h:inputText value="#{pessoaBean.pessoa.uf}" id="uf" />
+		
 		<h:outputLabel value="Ativo"/>
 		<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}"/>
 		
