@@ -103,7 +103,10 @@ xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 			<f:selectItem itemValue="FUNCIONARIO" itemLabel="Funcionario"/>
 		</h:selectOneMenu>
 		
-		
+		<h:outputLabel value="Estados: "/>
+		<h:selectOneMenu value="#{pessoaBean.pessoa.estados}">
+			<f:selectItems value="#{pessoaBean.estados}"/>
+		</h:selectOneMenu>
 		
 		<h:outputLabel/>
 		<h:panelGroup>

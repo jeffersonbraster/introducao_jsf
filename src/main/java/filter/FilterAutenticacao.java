@@ -18,6 +18,10 @@ import jpautil.jpautil;
 
 @WebFilter(urlPatterns = {"/*"})
 public class FilterAutenticacao implements Filter {
+	
+	
+	
+	
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
