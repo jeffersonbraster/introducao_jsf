@@ -104,8 +104,10 @@ xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 		</h:selectOneMenu>
 		
 		<h:outputLabel value="Estados: "/>
-		<h:selectOneMenu value="#{pessoaBean.pessoa.estados}">
+		<h:selectOneMenu value="#{pessoaBean.pessoa.estados}" immediate="true">
+			<f:selectItem itemlabel="[Selecione]" noSelectionOption="true"/>
 			<f:selectItems value="#{pessoaBean.estados}"/>
+			<f:ajax event="change" execute="@this" listener="#{pessoaBean.carregaCidades}"/>
 		</h:selectOneMenu>
 		
 		<h:outputLabel/>
