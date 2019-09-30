@@ -4,6 +4,8 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>entidades.Pessoa</class>
 		<class>entidades.Lancamento</class>
+		<class>entidades.Estados</class>
+		<class>entidades.Cidades</class>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/primeiroprojetojsf" />
