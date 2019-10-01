@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -30,6 +31,9 @@ public class Pessoa implements Serializable {
 
 	@Transient /* Não grava no banco, ficando apenas em memoria para ser chamado no selectOneMenu */
 	private Estados estados;
+	
+	@ManyToOne
+	private Cidades cidades;
 
 	@Temporal(TemporalType.DATE)
 	private Date datanascimento;
@@ -55,6 +59,15 @@ public class Pessoa implements Serializable {
 	
 	
 	
+	
+
+	public Cidades getCidades() {
+		return cidades;
+	}
+
+	public void setCidades(Cidades cidades) {
+		this.cidades = cidades;
+	}
 
 	public Estados getEstados() {
 		return estados;

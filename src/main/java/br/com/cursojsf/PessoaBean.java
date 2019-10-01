@@ -24,7 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 import com.google.gson.Gson;
 
 import dao.DaoGeneric;
+import entidades.Cidades;
+import entidades.Estados;
 import entidades.Pessoa;
+import jpautil.jpautil;
 import repository.IDaoPessoa;
 import repository.IDaoPessoaImpl;
 
@@ -37,6 +40,7 @@ public class PessoaBean {
 	private List<Pessoa> pessoas = new ArrayList<Pessoa>();
 	
 	private List<SelectItem> estados;
+	private List<SelectItem> cidades;
 	
 	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl();
 	
@@ -184,8 +188,30 @@ public class PessoaBean {
 	public void carregaCidades(AjaxBehaviorEvent event) {
 		String codigoEstado = (String) event.getComponent().getAttributes().get("submittedValue");
 		if(codigoEstado != null) {
-			System.out.println(codigoEstado);
+			
+			Estados estado = jpautil.getEntityManager().find(Estados.class, Long.parseLong(codigoEstado));
+			
+			if(estado != null) {
+				pessoa.setEstados(estado);
+				
+				List<Cidades> cidades = jpautil.getEntityManager().createQuery("from Cidades where estados.id = " + codigoEstado).getResultList();
+				
+				List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
+				
+				for (Cidades cidade : cidades) {
+					selectItemsCidade.add(new SelectItem(cidade.getId(), cidade.getNome()));
+				}
+				
+				setCidades(selectItemsCidade);
+			}
 		}
 	}
-
+	
+	public void setCidades(List<SelectItem> cidades) {
+		this.cidades = cidades;
+	}
+	
+	public List<SelectItem> getCidades() {
+		return cidades;
+	}
 }
