@@ -28,8 +28,8 @@ public class Cidades implements Serializable {
 	
 	
 
-	public long getId() {
-		return id;
+	public String getId() {
+		return getId();
 	}
 
 	public void setId(long id) {
