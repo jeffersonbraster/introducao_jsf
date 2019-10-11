@@ -21,6 +21,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 import com.google.gson.Gson;
 
@@ -43,9 +44,13 @@ public class PessoaBean {
 	private List<SelectItem> estados;
 	private List<SelectItem> cidades;
 	
+	private Part arquivofoto;
+	
 	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl();
 	
 	public String salvar() {
+		
+		System.out.println(arquivofoto);
 		pessoa = daoGeneric.merge(pessoa);
 		carregarPessoas();
 		mostrarMsg("Cadastrado com sucesso!");
@@ -186,24 +191,7 @@ public class PessoaBean {
 		return estados;
 	}
 	
-	public void carregaCidades(AjaxBehaviorEvent event) {
-		Estados estado = (Estados) ((HtmlSelectOneMenu) event.getSource()).getValue();
-		
-		if(estado != null) {			
-				pessoa.setEstados(estado);
-				
-				List<Cidades> cidades = jpautil.getEntityManager().createQuery("from Cidades where estados.id = " + estado.getId()).getResultList();
-				
-				List<SelectItem> selectItemsCidade = new ArrayList<SelectItem>();
-				
-				for (Cidades cidade : cidades) {
-					selectItemsCidade.add(new SelectItem(cidade, cidade.getNome()));
-				}
-				
-				setCidades(selectItemsCidade);
-			}
-		
-	}
+	
 	
 	public void setCidades(List<SelectItem> cidades) {
 		this.cidades = cidades;
@@ -212,4 +200,13 @@ public class PessoaBean {
 	public List<SelectItem> getCidades() {
 		return cidades;
 	}
+
+	public Part getArquivofoto() {
+		return arquivofoto;
+	}
+
+	public void setArquivofoto(Part arquivofoto) {
+		this.arquivofoto = arquivofoto;
+	}
+	
 }

@@ -13,7 +13,7 @@ xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 	
 	<ui:include src="/menu.xhtml"/>
 
-	<h:form id="formPessoa" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
+	<h:form id="formPessoa" enctype="multipart/form-data" rendered="#{pessoaBean.permiteAcesso('ADMINISTRADOR')}">
 	
 		<h:messages infoStyle="color:green"/>
 		
@@ -23,6 +23,9 @@ xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 		</f:facet>
 		<h:outputLabel value="Id:"/>
 		<h:inputText value="#{pessoaBean.pessoa.id}" readonly="true"/>
+		
+		<h:outputLabel value="Foto: "/>
+		<h:inputFile id="foto" value="#{pessoaBean.arquivofoto}"></h:inputFile>	
 		
 		<h:outputLabel value="Nome: "/>
 		<h:inputText value="#{pessoaBean.pessoa.nome}" required="true" requiredMessage="Informe nome do usuário." validatorMessage="Nome tem que ter minimo 10 letras" pt:placeholder="Nome">
@@ -103,19 +106,7 @@ xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 			<f:selectItem itemValue="FUNCIONARIO" itemLabel="Funcionario"/>
 		</h:selectOneMenu>
 		
-		<h:outputLabel value="Estados: "/>
-		<h:selectOneMenu value="#{pessoaBean.pessoa.estados}" immediate="true" id="comboEstados">
-			<f:selectItem itemlabel="[Selecione]" noSelectionOption="true"/>
-			<f:selectItems value="#{pessoaBean.estados}"/>
-			<f:ajax event="change" execute="@this" render="comboCidade" listener="#{pessoaBean.carregaCidades}"/>
-		</h:selectOneMenu>
 		
-		<h:outputLabel value="Cidades: "/>
-		
-		<h:selectOneMenu value="#{pessoaBean.pessoa.cidades}" id="comboCidade" immediate="true" converter="cidadeConverter">
-			<f:selectItem noSelectionOption="true" itemLabel="[Selecione]"/>
-			<f:selectItems value="#{pessoaBean.cidades}"/>
-		</h:selectOneMenu>
 				
 		<h:outputLabel/>		
 		<h:panelGroup>
