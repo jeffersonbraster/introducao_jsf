@@ -1,5 +1,7 @@
 package br.com.cursojsf;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -23,8 +25,10 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
+import javax.xml.bind.DatatypeConverter;
 
 import com.google.gson.Gson;
 
@@ -51,8 +55,37 @@ public class PessoaBean {
 	
 	private IDaoPessoa iDaoPessoa = new IDaoPessoaImpl();
 	
-	public String salvar() {
+	public String salvar() throws IOException {
 		
+		/*Processar imagem*/
+		byte[] imagemByte = getByte(arquivofoto.getInputStream());
+		pessoa.setFotoIconBase64Original(imagemByte); /*Salva foto original*/
+		
+		/*Transformar em buffer image*/
+		BufferedImage bufferImage = ImageIO.read(new ByteArrayInputStream(imagemByte));
+		
+		/*Pega o tipo da imagem*/
+		int type = bufferImage.getType() ==0? BufferedImage.TYPE_INT_ARGB : bufferImage.getType();
+		
+		int largura = 200;
+		int altura = 200;
+		
+		/*Criar a miniatura*/
+		BufferedImage resizedImage = new BufferedImage(altura, largura, type);
+		Graphics2D g = resizedImage.createGraphics();
+		g.drawImage(bufferImage, 0, 0, largura, altura, null);
+		g.dispose();
+		
+		/*Escrever novamente a imagem em tamanho menor*/
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		String extensao = arquivofoto.getContentType().split("\\/")[1]; /*image/png*/
+		ImageIO.write(resizedImage, extensao, baos);
+		
+		String miniImagem = "data:" + arquivofoto.getContentType() + ";base64," + DatatypeConverter.printBase64Binary(baos.toByteArray());
+		
+		/*Processar imagem*/
+		pessoa.setFotoIconBase64(miniImagem);
+		pessoa.setExtensao(extensao);
 		
 		pessoa = daoGeneric.merge(pessoa);
 		carregarPessoas();
@@ -212,6 +245,7 @@ public class PessoaBean {
 		this.arquivofoto = arquivofoto;
 	}
 	
+	/*Metodo que converter inputstream para array de bytes*/
 	private byte[] getByte(InputStream is) throws IOException {
 		
 		int len;
