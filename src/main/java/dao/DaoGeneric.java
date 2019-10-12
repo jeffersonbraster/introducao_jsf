@@ -58,4 +58,14 @@ public class DaoGeneric<J> {
 		
 		return retorno;
 	}
+	
+	public J consultar(Class<J> entidade, String codigo) {
+		EntityManager entityManager = jpautil.getEntityManager();
+		EntityTransaction entityTransaction = entityManager.getTransaction();
+		entityTransaction.begin();
+		
+		J objeto = (J) entityManager.find(entidade, Long.parseLong(codigo));
+		entityTransaction.commit();
+		return objeto;
+	}
 }
