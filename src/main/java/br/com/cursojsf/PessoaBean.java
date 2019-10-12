@@ -31,6 +31,7 @@ import javax.servlet.http.Part;
 import javax.xml.bind.DatatypeConverter;
 
 import com.google.gson.Gson;
+import com.sun.javafx.collections.MappingChange.Map;
 
 import dao.DaoGeneric;
 import entidades.Cidades;
@@ -267,6 +268,13 @@ public class PessoaBean {
 			buf = bos.toByteArray();
 		}
 		return buf;
+	}
+	
+	public void download() {
+		java.util.Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		
+		String fileDownloadId = params.get("fileDownloadId");
+		System.out.println(fileDownloadId);
 	}
 	
 }
